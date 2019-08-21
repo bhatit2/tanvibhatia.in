@@ -23,22 +23,23 @@ const sectionNames = ['#about', '#skills', '#blog', '#contact'];
 let sectionOffsets = [];
 let sectioninView = '';
 //load animation
+let animEle = document.querySelector('.anime-container');
 var animation = bodymovin.loadAnimation({
-  container: document.querySelector('.anime-container'),
+  container: animEle,
   renderer: 'svg',
   loop: false,
   autoplay: false,
   path: './js/downloadAnimation.json'
 });
-let downloadLink = document.querySelector('.download-btn');
-downloadLink.addEventListener('click', ()=>{
+
+animEle.addEventListener('click', () => {
+  let downloadLink = document.querySelector('.download-btn');
   animation.play();
-  setTimeout(()=>{
-    // downloadLink.setAttribute('download' , true);
-    // downloadLink.setAttribute('href', '/src/assets/files/Tanvi_Bhatia_Resume.pdf');
+  setTimeout(() => {
     downloadLink.click();
-  }, 1000)
-})
+  }, 3000)
+}
+);
 
 var animation2 = bodymovin.loadAnimation({
   container: document.querySelector(".footer-img"),
@@ -49,7 +50,7 @@ var animation2 = bodymovin.loadAnimation({
 });
 
 (function () {
-    
+
   sectionNames.forEach((section) => {
     let ele = document.querySelector(section);
     sectionOffsets.push({
@@ -71,8 +72,8 @@ document.querySelectorAll('a.nav-link').forEach(val => {
 
 document.addEventListener('scroll', function () {
   let scrollPosition = parseInt(window.scrollY);
-  sectionOffsets.forEach((section, i)=>{
-    if(section.start < scrollPosition && section.end > scrollPosition){
+  sectionOffsets.forEach((section, i) => {
+    if (section.start < scrollPosition && section.end > scrollPosition) {
       sectioninView = sectionNames[i];
       removeActiveClass();
       let selector = `.nav-link.${sectioninView.substr(1)}`;
@@ -81,7 +82,7 @@ document.addEventListener('scroll', function () {
   })
 })
 
-function removeActiveClass(){
+function removeActiveClass() {
   sectionNames.forEach(section => {
     let selector = `.nav-link.${section.substr(1)}`;
     document.querySelector(selector).classList.remove('active');
